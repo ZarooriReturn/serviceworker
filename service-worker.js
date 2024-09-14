@@ -27,3 +27,15 @@ messaging.onBackgroundMessage((payload) => {
 
     self.registration.showNotification(notificationTitle, notificationOptions);
 });
+self.addEventListener('push', function(event) {
+    const data = event.data.json();
+    const options = {
+        body: data.body,
+        icon: data.icon || 'https://blogger.googleusercontent.com/img/a/AVvXsEiNJ8qThRwVB9BFu259_Z7IvS7jnl2BTwu9Ts3vJ-lH_PBktSxrmQt3hI7C7P2pyQL0qqPzE1Ln-LPz-La3_wnuzAGOv94SNLaPAsJDexCBo-WGR_LwjZt42EWzXCpSl173m5PIr6EL16lGAq7WQhtJj80MpgcmQOWoxV5o0RE9qXQ-HX_D3MWDDvtQ-Cs=s500', // Update with your icon
+        badge: data.badge || 'https://blogger.googleusercontent.com/img/a/AVvXsEiNJ8qThRwVB9BFu259_Z7IvS7jnl2BTwu9Ts3vJ-lH_PBktSxrmQt3hI7C7P2pyQL0qqPzE1Ln-LPz-La3_wnuzAGOv94SNLaPAsJDexCBo-WGR_LwjZt42EWzXCpSl173m5PIr6EL16lGAq7WQhtJj80MpgcmQOWoxV5o0RE9qXQ-HX_D3MWDDvtQ-Cs=s500' // Optional badge icon
+    };
+    
+    event.waitUntil(
+        self.registration.showNotification(data.title, options)
+    );
+});
